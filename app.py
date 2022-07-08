@@ -17,6 +17,10 @@ def create_store():
     print(data)
     return jsonify({'name': data['name']})
 
+@app.route('/store/<string:name>')
+def get_store(name):
+    return jsonify({'name': name})
+
 
 
 if __name__ == '__main__':
