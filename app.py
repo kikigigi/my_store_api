@@ -29,7 +29,9 @@ def get_stores():
 
 @app.route('/store/<string:name>/item', methods=['POST'])
 def create_item_in_store(name):
-    pass
+    data = request.get_json()
+    stores.append({'name': name, 'items':{'name': data['name'], 'price':data['price']}})
+    return jsonify({'message': 'item added to the store'})
 
 @app.route('/store/<string:name>/item')
 def get_item_in_store(name):
