@@ -15,6 +15,7 @@ def home():
 
 @app.route('/store', methods=['POST'])
 def create_store():
+    global stores
     data = request.get_json()
     stores.append({'name': data['name'], 'items': []})
     return jsonify({'message': 'created store', 'name': data['name']})
