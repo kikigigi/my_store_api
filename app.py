@@ -6,6 +6,8 @@ app = Flask(__name__)
 load_dotenv()
 app.secret_key = os.getenv('SECRET_KEY')
 
+stores = []
+
 @app.route('/')
 def home():
     return 'Hello World From Me!'
@@ -14,12 +16,24 @@ def home():
 @app.route('/store', methods=['POST'])
 def create_store():
     data = request.get_json()
-    print(data)
-    return jsonify({'name': data['name']})
+    stores.append({'name': data['name'], 'items': []})
+    return jsonify({'message': 'created store', 'name': data['name']})
 
 @app.route('/store/<string:name>')
 def get_store(name):
     return jsonify({'name': name})
+
+@app.route('/stores')
+def get_stores():
+    return jsonify({'stores': stores})
+
+@app.route('/store/<string:name>/item', methods=['POST'])
+def create_item_in_store(name):
+    pass
+
+@app.route('/store/<string:name>/item')
+def get_item_in_store(name):
+    pass
 
 
 
